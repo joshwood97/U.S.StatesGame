@@ -22,6 +22,12 @@ guessed_states = []
 while len(guessed_states) < 50:
     answer_state = screen.textinput(title=f"{len(guessed_states)}/50 States Correct ", prompt="Guess another state name. ").title()
 
+    if answer_state == "Exit":
+        missing_states = [state for state in all_states if state not in guessed_states]
+        new_data = pandas.DataFrame(missing_states)
+        new_data.to_csv("states_you_need_to_learn.csv")
+        break
+
     # Check if the guess is amongst the 50 states
         #If right, create a turtle to write the name of the state at the correct x,y coor
     if answer_state in all_states:
